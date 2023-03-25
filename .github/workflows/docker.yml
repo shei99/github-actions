@@ -7,13 +7,11 @@ on:
 ##      - main
 #    paths:
 #      - 'routes/**'
-  release:
 
-
-#  workflow_run:
-#    workflows: [ "Create GitHub Release" ]
-#    types:
-#      - completed
+  workflow_run:
+    workflows: [ "Create GitHub Release" ]
+    types:
+      - completed
 
     # manual trigger for feature branches
   workflow_dispatch:
@@ -21,6 +19,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  TAG: 1.0.0
 
 jobs:
   docker-build:
@@ -45,8 +44,27 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=tag,enable=true,priority=600
+
+      - name: Get latest version tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: ""
+          dry_run: true
+
+      - name: Choose correct tag
+        id: tag
+        run: |
+          if [[ $BRANCH == 'main' ]]; then
+              echo "TAG=${{ steps.tag_version.outputs.tags }}" >> "$GITHUB_ENV"
+          else
+              echo "TAG=TAG=${{ steps.meta.outputs.tags }}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Echo Tag
+        run: echo "$TAG"
+
 #
 #      - name: Build and push Docker image
 #        uses: docker/build-push-action@v3
