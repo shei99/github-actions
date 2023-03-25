@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - develop
-      - main
+#      - main
 #    paths:
 #      - 'routes/**'
+    tags:
+      - '*'
 
   workflow_run:
     workflows: [ "Create GitHub Release" ]
@@ -43,6 +45,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=pep440,pattern={{version}}
 #
 #      - name: Build and push Docker image
 #        uses: docker/build-push-action@v3
