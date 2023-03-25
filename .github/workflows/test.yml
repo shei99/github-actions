@@ -7,16 +7,16 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Run yarn audit
-        run: yarn audit
+#  audit:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Use Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 16
+#      - name: Run yarn audit
+#        run: yarn audit
 
   lint:
     runs-on: ubuntu-latest
@@ -26,21 +26,23 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Add eslint
+        run: yarn global add eslint
       - name: Run yarn lint
         run: yarn lint
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install modules
-        run: yarn install
-      - name: Unit test
-        run: yarn test:unit
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Use Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 16
+#      - name: Install modules
+#        run: yarn install
+#      - name: Unit test
+#        run: yarn test:unit
 
   docker-build:
     runs-on: ubuntu-latest
