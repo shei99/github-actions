@@ -1,8 +1,8 @@
-FROM node:9
+FROM node:16
 
 WORKDIR /app
 
-RUN yarn add -g contentful-cli
+# RUN yarn global add contentful-cli
 
 COPY package.json .
 RUN yarn install
