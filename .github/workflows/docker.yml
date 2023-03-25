@@ -8,12 +8,11 @@ on:
 #    paths:
 #      - 'routes/**'
     tags:
-      - '*'
 
-  workflow_run:
-    workflows: [ "Create GitHub Release" ]
-    types:
-      - completed
+#  workflow_run:
+#    workflows: [ "Create GitHub Release" ]
+#    types:
+#      - completed
 
     # manual trigger for feature branches
   workflow_dispatch:
