@@ -57,9 +57,9 @@ jobs:
         id: tag
         run: |
           if [[ $BRANCH == 'main' ]]; then
-              echo "TAG=${{ steps.tag_version.outputs.tags }}" >> "$GITHUB_ENV"
+              echo "TAG=${{ steps.tag_version.outputs.new_version }}" >> "$GITHUB_ENV"
           else
-              echo "TAG=TAG=${{ steps.meta.outputs.tags }}" >> "$GITHUB_ENV"
+              echo "TAG=${{ steps.meta.outputs.tags }}" >> "$GITHUB_ENV"
           fi
 
       - name: Echo Tag
