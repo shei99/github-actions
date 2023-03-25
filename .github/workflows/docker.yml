@@ -13,7 +13,7 @@ on:
       - completed
 
     # manual trigger for feature branches
-    workflow_dispatch:
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
