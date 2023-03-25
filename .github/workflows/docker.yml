@@ -47,6 +47,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=pep440,pattern={{version}}
+            type=ref,event=tag,enable=true,priority=600
 #
 #      - name: Build and push Docker image
 #        uses: docker/build-push-action@v3
